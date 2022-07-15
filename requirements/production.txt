@@ -11,3 +11,4 @@ hiredis==2.0.0  # https://github.com/redis/hiredis-py
 # ------------------------------------------------------------------------------
 django-storages[boto3]==1.12.3  # https://github.com/jschneier/django-storages
 django-anymail[mailgun]==8.6  # https://github.com/anymail/django-anymail
+djangorestframework==3.13.1 # add
