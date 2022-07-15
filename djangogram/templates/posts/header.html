@@ -1,0 +1,29 @@
+{% load static %}
+
+<header>
+  <div class="header-box">
+    <div class="main-img">
+      <a href="{% url 'posts:index' %}">
+        <img src="{% static 'images/posts/main_logo.png'%}" alt="logo">
+      </a>
+    </div>
+    <div class="search">
+      <form action="{% url 'posts:post_search' %}" method="GET">
+        <!-- 쿼리 스트링에 key 추가하기 위해 input에 name 추가.-->
+        <input type="text" name="q" placeholder="Search">
+      </form>
+    </div>
+    <div class="header-right">
+      <div>
+        <a href="{% url 'posts:post_create' %}">
+          <i class="fa-solid fa-circle-plus" style="font-size: 1.5em;"></i>
+        </a>
+      </div>
+      <div>
+        <a href="#">
+          <i class="fa-solid fa-user" style="font-size: 1.5em;"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

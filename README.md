@@ -1,5 +1,23 @@
 # djangogram
+=============
 
+To-Do
+------
+- [] 포스트 생성 (C)
+- [] 포스트 수정 (U)
+- [] 포스트 삭제 (D)
+- [] 포스트 리스트(피드) (R)
+- [] 댓글
+- [] 좋아요
+- [] 검색
+- [] 프로필 피드
+
+Create
+Read
+Update
+Delete
+
+-----------------------------------
 Behold My Awesome Project!
 
 [![Built with Cookiecutter Django](https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg?logo=cookiecutter)](https://github.com/cookiecutter/cookiecutter-django/)

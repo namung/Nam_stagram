@@ -1,0 +1,112 @@
+{% extends "posts/base.html" %}
+{% load static %}
+
+{% block content %}
+
+{% for post in posts %}
+
+    <!-- {{ post.author.id }}
+    {{ post.author.username }}
+    {{ post.author.profile_photo }}
+    {{ post.id }}
+    {{ post.image }}
+    {{ post.caption }}
+
+    {% for comment in post.comment_post %}
+    <br> {{ comment.contents }}
+    {% endfor %}
+
+    <div>
+      ------------------------------------- -->
+
+  <div class="post-box">
+    <!-- HEADER -->
+    <div class="header">
+      <div class="profile">
+        <!-- 유저 프로필 사진이 있다면 있는 사진을, 없다면 미리 저장된 사진을 보여줌. -->
+        {% if post.author.profile_photo != None %}
+            <img src="{{ post.author.profile_photo }}">
+        {% else %}
+            <img src="{% static 'images/posts/no_avatar.png' %}">
+        {% endif %}
+
+        <div>
+            <b>{{ post.author.username }}</b>
+        </div>
+      </div>
+
+      <!-- 포스트 수정 & 삭제 기능 구현. 작성자만 버튼 보이게 조건문 사용함. -->
+      {% if user.id == post.author.id %}
+        <div class="icon">
+
+          <!-- 포스트 수정 기능 구현 -->
+          <!-- key 값인 post.id를 넘겨줌. 왜냐면 해당 내용만 삭제해야하기 때문에. -->
+          <a href="{% url 'posts:post_update' post.id %}">
+            <i class="fa fa-pencil fa1x"></i>
+          </a>
+
+          <!-- 포스트 삭제 기능 구현 -->
+          <a href="{% url 'posts:post_delete' post.id %}">
+            <i class="fa fa-trash-o fa1x"></i>
+          </a>
+        </div>
+      {% endif %}
+
+    </div>
+
+    <!-- IMAGE -->
+    <img class="post-image" src="{{ post.image }}">
+
+    <!-- IMAGE-BUTTON -->
+    <!-- 어떤 포스트를 좋아하는지 포스트를 식별하도록 post_id를 id 값으로 추가. -->
+    <!-- 이 id값을 onclick 함수에서 넘겨받도록 인자 줌. -->
+    <button id="like-button-{{ post.id }}" onclick="handleLikeClick(this.id)">
+    {% if user.id in post.image_likes %}
+      <i class="fa fa-heart fa-2x"></i>
+    {% else %}
+      <i class="fa fa-heart-o fa-2x"></i>
+    {% endif %}
+    </button>
+
+    <div class="desc-box">
+      <!-- IMAGE-DESCRIPTION -->
+      <div class="image-desc">
+        <b>{{ post.author.username }}</b>
+        {{ post.caption }}
+      </div>
+
+      <hr class="line">
+
+      <!-- COMMENT -->
+      <div class="comment">
+        {% for comment in post.comment_post %}
+          <div id="comment-{{ comment.id }}">
+            <b>{{ comment.author.username }}</b>
+            {{ comment.contents }}
+            <!-- 'user'라는 키워드를 그냥 사용해주면 됨. -->
+            {% if user.id == comment.author.id %}
+            <a href="{% url 'posts:comment_delete' comment.id %}">
+              <i class="fa fa-trash-o fa1x"></i>
+            </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <!-- COMMENT INPUT -->
+    <div class="comment-input">
+      <!-- post.id 를 사용할 수 있는 이유 : 시리얼라이저에서 post의 id를 가져와서 사용한다고 명시했기 때문. -->
+      <form action="{% url 'posts:comment_create' post.id %}" method="post">
+        {% csrf_token %}
+        {{ comment_form }}
+        <input type="submit" value="Post">
+      </form>
+
+    </div>
+
+</div>
+
+{% endfor %}
+
+{% endblock content %}

@@ -1,0 +1,20 @@
+{% extends "posts/base.html" %}
+
+{% block content %}
+
+<div class="post-create">
+  <div>
+    Create Post
+  </div>
+  <div class="form">
+    <!-- 파일이나 이미지를 post로 서버에 보내는 경우 enctype을 지정해주어야 함! -->
+    <form action="{% url 'posts:post_create' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <!-- views.py 에서 form 을 넘겨받음. as_p 사용하면 자동으로 html p 태그로 싸인 field 내용들이 보임.  -->
+      {{ form.as_p }}
+      <input type="submit" value="Create">
+    </form>
+  </div>
+</div>
+
+{% endblock content%}
